@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #f5f5f7;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 3rem;
+            font-weight: 300;
+            margin: 0;
+            background-image: linear-gradient(0deg, rgb(89, 89, 89) 0%, rgb(255, 255, 255) 100%);
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            color: #a1a1a6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+        }
+
+        .quote-section {
+            margin: 60px 0;
+            padding: 40px;
+            color: #f5f5f7;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        .quote {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-style: italic;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -20px;
+            left: -30px;
+            opacity: 0.3;
+        }
+
+        .quote::after {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            bottom: -40px;
+            right: -20px;
+            opacity: 0.3;
+        }
+
+        .author {
+            font-size: 1.3rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .author::before {
+            content: '— ';
+            opacity: 0.7;
+        }
+
+        .apple-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            color: #f5f5f7;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .apple-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .apple-footer {
+            color: #f2f2f7;
+            padding: 3rem 0 2rem 0;
+            background: #131313;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f2f2f7;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .social-icon:hover {
+            background: rgba(0, 122, 255, 0.2);
+            border-color: rgba(0, 122, 255, 0.4);
+            color: #007AFF;
+            transform: translateY(-2px);
+        }
+
+        .footer-link {
+            color: #f2f2f7;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 0 4px;
+        }
+
+        .footer-link:hover {
+            color: #007AFF;
+        }
+
+        .divider {
+            color: rgba(255, 255, 255, 0.3);
+            margin: 0 8px;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .disclaimer {
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .apple-logos {
+            font-size: 2rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .quote {
+                font-size: 1.5rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .footer-section {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <a href="HomepageFinal.html" class="apple-logo" aria-label="Apple Home">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+            </a>
+            
+            <h1>Ethics and Compliance</h1>
+            
+            <p class="description">
+                Apple conducts business ethically, honestly, and in full compliance with the law. We believe that how we conduct ourselves is as critical to Apple's success as making the best products in the world. Our Compliance and Business Conduct policies are foundational to how we do business and how we put our values into practice every day.
+            </p>
+
+            <div class="quote-section">
+                <div class="quote">We do the right thing, even when it's not easy.</div>
+                <div class="author">Tim Cook</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="apple-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="apple-logos">
+                    <i class="fab fa-apple"></i>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <a href="https://www.facebook.com/apple/" class="social-icon" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/apple/" class="social-icon" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/apple?lang=en" class="social-icon" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+
+            <div class="footer-section">
+                <div class="footer-links">
+                    <a href="https://www.apple.com/ph/privacy/" class="footer-link">Privacy Policy</a>
+                    <span class="divider">|</span>
+                    <a href="https://www.apple.com/legal/internet-services/terms/site.html" class="footer-link">Terms of Use</a>
+                    <span class="divider">|</span>
+                    <a href="https://www.apple.com/ph/contact/" class="footer-link">Contact Us</a>
+                    <span class="divider">|</span>
+                    <a href="HomepageFinal.html" class="footer-link">Home</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <div class="copyright">
+                    © 2025 Apple Inc. All rights reserved.
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <div class="disclaimer">
+                    This is only for Educational Purposes. (NOT AN OFFICIAL WEBSITE OF Apple Inc.)
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
