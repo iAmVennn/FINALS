@@ -9,9 +9,8 @@
     <link href="footer.css" rel="stylesheet">
     <link href="header.css" rel="stylesheet">
     <link href="video.css" rel="stylesheet">
-    <link href="notch.css" rel="stylesheet">
-    <link href="card-slider.css" rel="stylesheet">
     <link href="gradient_text.css" rel="stylesheet">
+    <link href="card-slider.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png">
     <style>
 
@@ -30,6 +29,443 @@
             background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
+        }
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .notch-section {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 80px;
+            opacity: 0;
+            transform: translateX(-50%) translateY(-20px);
+            animation: notchAppear 1s ease-out 0.5s forwards;
+            pointer-events: none;
+            transition: all 0.3s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .notch-section {
+                top: 15px;
+                height: 70px;
+                transform: translateX(-50%) translateY(0) !important;
+                opacity: 1 !important;
+            }
+            
+            .notch-section.scrolled-up .notch {
+                width: 340px !important;
+                padding: 12px 18px !important;
+                height: 48px !important;
+                background: rgba(0, 0, 0, 0.92) !important;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+                gap: 10px !important;
+            }
+            
+            .notch-section.scrolled-up .text-overlay {
+                opacity: 1 !important;
+                transform: translate(-50%, -50%) scale(1) !important;
+                pointer-events: auto !important;
+                transition-delay: 0.3s !important;
+            }
+            
+            .notch-section.scrolled-up .product-link {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                animation: none !important;
+            }
+            
+            .notch-section.scrolled-up .product-link:nth-child(1) {
+                transition-delay: 0.5s;
+            }
+            .notch-section.scrolled-up .product-link:nth-child(2) {
+                transition-delay: 0.6s;
+            }
+            .notch-section.scrolled-up .product-link:nth-child(3) {
+                transition-delay: 0.7s;
+            }
+            .notch-section.scrolled-up .product-link:nth-child(4) {
+                transition-delay: 0.8s;
+            }
+            .notch-section.scrolled-up .product-link:nth-child(5) {
+                transition-delay: 0.9s;
+            }
+            
+            .notch-section.scrolled-up.auto-collapsed .notch {
+                width: 140px !important;
+                padding: 10px 16px !important;
+                height: 40px !important;
+                background: rgba(0, 0, 0, 0.85) !important;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+                gap: 8px !important;
+            }
+            
+            .notch-section.scrolled-up.auto-collapsed .text-overlay {
+                opacity: 0 !important;
+                transform: translate(-50%, -50%) scale(0.85) !important;
+                pointer-events: none !important;
+                transition-delay: 0s !important;
+            }
+            
+            .notch-section.scrolled-up.auto-collapsed .product-link {
+                opacity: 0 !important;
+                transform: translateY(10px) !important;
+            }
+        }
+
+        @keyframes notchAppear {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .notch-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 40px;
+            padding: 6px;
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: auto;
+        }
+
+        .notch-container:hover {
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .notch {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 35px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            min-width: 140px;
+            max-width: 550px;
+            width: 140px;
+            height: 40px;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .notch-container:hover .notch {
+            width: 550px;
+            padding: 14px 24px;
+            height: 46px;
+            background: rgba(0, 0, 0, 0.92);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            gap: 16px;
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition-delay: 0.6s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .notch-container:hover .text-overlay {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+
+        .notch-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .notch-container:hover .notch-content {
+            gap: 12px;
+        }
+
+        .app-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAC5UlEQVR4Aa1XQ3hkQRjc+ynX2OZtbfu+tm3b1nlt27a9O4qNS5xxbdd+cTKvXydT31fJoPuvmvf6/ejw86dBlX6CwwQXCq6t5cLaz/xV4+ld6F8r9NdgsCAjIwf5+UUoLCwBydf8jN+JNQbBddzjDQM+gocErRSyWm2QgWu4lntq9/q01UAfwYKCgmK43W6ognu4lzEE+6oamCboLC0tR3vBGIwlOF2vgZm5uQWoqamBXrhcLpw5cxZ79uxFKxCxrGBMxpYZ6Eu33KAXNDp+/AQEBgbzv8Y6Kxi7+e1ofuAKVS/7zp27KE7i6dNnem5HAbVaM3CYh0YF/PWRkdEUpxHoQe3BPNTcQJCgTc9pT0tLh8VigdPpBLFv3348evVKBC7A16/fkJmZKX06qCXo39jAej67Wnjx4iVGjBiJ0NBwBAeHYsCAgTh48BCuXLmCKVOmIioqBrwS4eGRGDduPMxmMzyBWtRsbMCglWSePXuOkJAwCuhmnz79YLVaPSUrGjDWGQhgCvWEyspKdOrURUk8JiYO799/0Exg1KQ2DQxjHveEO3fuKomTPBcyUJPaNLCQxcQTNm3arGzAYDBABmoK7UU0sE7rAC5dukxJPCgoRPy6DMhATWpLDWzbtl35Cty//0DBgOQW3LhxU9nAsGEj4HA4dN0CySHkwvy6bKfECRMmISsrS34IZY8hMXnyFAZV5rFjx6WPoa5E9PnzZ2XxpKQUlJaWaiUik1IqXrBgkZKB06fPwBOKiv4fwA3Ni5FdK3NVVFSgd+++usRnzJilXIzII7JynJOTAxaa7t17Yt68+bh37z6+fPmKCxcuYvToMejVqzdWrVrNMi0rx4cVGxIFKDQkCi2ZAhRaMklTavWqeF6epCltxuneasvLyurb8lmqg0lfLw4m/dozmh0RtBUV6R/NuJZ7avf6eGs4ZeIwMoVmZrYcTvkZv+MarlUZTlUZIDi8diRfX8uFtZ8FqMb7Bx+2VJbBTrlcAAAAAElFTkSuQmCC');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .notch-container:hover .app-icon {
+            width: 32px;
+            height: 32px;
+            transform: scale(1.05);
+        }
+
+        .product-link {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
+            padding: 6px 8px;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        .notch-container:hover .product-link:nth-child(1) {
+            animation: linkAppear 0.3s ease-out 0.8s forwards;
+        }
+        .notch-container:hover .product-link:nth-child(2) {
+            animation: linkAppear 0.3s ease-out 0.9s forwards;
+        }
+        .notch-container:hover .product-link:nth-child(3) {
+            animation: linkAppear 0.3s ease-out 1.0s forwards;
+        }
+        .notch-container:hover .product-link:nth-child(4) {
+            animation: linkAppear 0.3s ease-out 1.1s forwards;
+        }
+        .notch-container:hover .product-link:nth-child(5) {
+            animation: linkAppear 0.3s ease-out 1.2s forwards;
+        }
+
+        @keyframes linkAppear {
+            0% {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .notch-container:not(:hover) .product-link {
+            animation: none;
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        .product-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .product-link:hover::before {
+            opacity: 1;
+        }
+
+        .product-link:hover {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .product-link:active {
+            transform: translateY(0);
+        }
+
+        .product-link:visited {
+            color: white;
+        }
+
+        /* Modified green status indicator - only appears on hover */
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+            flex-shrink: 0;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .notch-container:hover .status-indicator {
+            opacity: 1;
+        }
+
+        .status-indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 18px;
+            height: 18px;
+            background: #34d399;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.3;
+            }
+        }
+
+        .notch-section.scrolled-up .status-indicator {
+            opacity: 1 !important;
+        }
+
+        .notch-section.scrolled-up.auto-collapsed .status-indicator {
+            opacity: 0 !important;
+        }
+
+        @media (max-width: 768px) {
+            .notch-container:hover .notch {
+                width: 340px;
+                padding: 12px 18px;
+                height: 48px;
+            }
+            
+            .notch-section {
+                will-change: transform;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .text-overlay {
+                flex-wrap: nowrap;
+                gap: 6px;
+            }
+            
+            .product-link {
+                font-size: 11px;
+                padding: 4px 6px;
+                border-radius: 4px;
+                transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            }
+            
+            .notch-container:hover .notch {
+                width: 140px;
+                padding: 10px 16px;
+                height: 40px;
+                background: rgba(0, 0, 0, 0.85);
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                gap: 8px;
+            }
+            
+            .notch-container:hover .text-overlay {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.85);
+                pointer-events: none;
+                transition-delay: 0s;
+            }
+            
+            .notch-container:hover .product-link {
+                opacity: 0;
+                transform: translateY(10px);
+                animation: none;
+            }
+            
+            .notch-container:hover .status-indicator {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .notch-section.scrolled-up .notch {
+                width: 320px !important;
+                padding: 10px 16px !important;
+                height: 46px !important;
+            }
+            
+            .product-link {
+                font-size: 10px;
+                padding: 3px 5px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .notch-section.scrolled-up .notch {
+                width: 300px !important;
+                padding: 8px 14px !important;
+                height: 44px !important;
+            }
+            
+            .text-overlay {
+                gap: 4px;
+            }
+            
+            .product-link {
+                font-size: 9px;
+                padding: 2px 4px;
+            }
+        }
+
+        .main-content {
+            padding-top: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding-top: 90px;
+            }
         }
     </style>
 </head>
@@ -50,7 +486,7 @@
     </div>
     
     <div class="container">
-        <div class="notch-section">
+        <div class="notch-section" id="notchSection">
             <div class="notch-container">
                 <div class="notch">
                     <div class="notch-content">
@@ -193,54 +629,44 @@
     </div>
 
 <footer class="apple-footer">
-        <div class="row">
-            <div class="col-12">
+        <div class="footer_container">
+            <div class="apple-logos">
+                <i class="fab fa-apple"></i>
+            </div>
 
-                <div class="text-center footer-section">
-                    <div class="apple-logos">
-                        <i class="fab fa-apple"></i>
-                    </div>
-                </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/apple/" class="social-icon" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/apple/" class="social-icon" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/apple?lang=en" class="social-icon" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
 
-                <div class="text-center footer-section">
-                    <a href="https://www.facebook.com/apple/" class="social-icon d-inline-flex align-items-center justify-content-center text-decoration-none rounded-3 mx-2" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.instagram.com/apple/" class="social-icon d-inline-flex align-items-center justify-content-center text-decoration-none rounded-3 mx-2" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://x.com/apple?lang=en" class="social-icon d-inline-flex align-items-center justify-content-center text-decoration-none rounded-3 mx-2" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
+            <div class="footer-links">
+                <a href="https://www.apple.com/ph/privacy/" class="footer-link">Privacy Policy</a>
+                <span class="divider">|</span>
+                <a href="https://www.apple.com/legal/internet-services/terms/site.html" class="footer-link">Terms of Use</a>
+                <span class="divider">|</span>
+                <a href="https://www.apple.com/ph/contact/" class="footer-link">Contact Us</a>
+                <span class="divider">|</span>
+                <a href="aboutpage.html" class="footer-link">About Us</a>
+            </div>
 
-                <div class="text-center footer-section">
-                    <div class="d-flex justify-content-center align-items-center flex-wrap">
-                        <a href="https://www.apple.com/ph/privacy/" class="footer-link text-decoration-none px-3 py-1 rounded-2 mx-1">Privacy Policy</a>
-                        <span class="divider mx-2 d-none d-md-inline">|</span>
-                        <a href="https://www.apple.com/legal/internet-services/terms/site.html" class="footer-link text-decoration-none px-3 py-1 rounded-2 mx-1">Terms of Use</a>
-                        <span class="divider mx-2 d-none d-md-inline">|</span>
-                        <a href="https://www.apple.com/ph/contact/" class="footer-link text-decoration-none px-3 py-1 rounded-2 mx-1">Contact Us</a>
-                        <span class="divider mx-2 d-none d-md-inline">|</span>
-                        <a href="aboutpage.html" class="footer-link text-decoration-none px-3 py-1 rounded-2 mx-1">About Us</a>
-                    </div>
-                </div>
+            <div class="copyright">
+                © 2025 Apple Inc. All rights reserved.
+            </div>
 
-                <div class="text-center footer-section">
-                    <div class="copyright">
-                        © 2025 Apple Inc. All rights reserved.
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <div class="disclaimer rounded-3 d-inline-block">
-                        This is only for Educational Purposes. (NOT AN OFFICIAL WEBSITE OF Apple Inc.)
-                    </div>
+            <div class="disclaimer-wrapper">
+                <div class="disclaimer">
+                    This is only for Educational Purposes. (NOT AN OFFICIAL WEBSITE OF Apple Inc.)
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
 
@@ -549,6 +975,112 @@ function preloadImages() {
 
 
 window.addEventListener("load", preloadImages);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let lastScrollTop = 0;
+        let scrollDirection = 'up';
+        const notchSection = document.getElementById('notchSection');
+
+        function isMobileDevice() {
+            return window.innerWidth <= 768;
+        }
+
+        function handleScroll() {
+            if (!isMobileDevice()) {
+                notchSection.classList.remove('scrolled-up', 'scrolled-down');
+                return;
+            }
+
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (currentScroll > lastScrollTop && currentScroll > 100) {
+                scrollDirection = 'down';
+                notchSection.classList.add('scrolled-down');
+                notchSection.classList.remove('scrolled-up');
+            } else if (currentScroll < lastScrollTop || currentScroll <= 100) {
+                scrollDirection = 'up';
+                notchSection.classList.add('scrolled-up');
+                notchSection.classList.remove('scrolled-down');
+            }
+            
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        }
+
+        let autoCollapseTimer;
+
+        function startAutoCollapseTimer() {
+            if (!isMobileDevice()) return;
+            
+            clearTimeout(autoCollapseTimer);
+            autoCollapseTimer = setTimeout(() => {
+                if (notchSection.classList.contains('scrolled-up')) {
+                    notchSection.classList.add('auto-collapsed');
+                }
+            }, 3000);
+        }
+
+        function resetAutoCollapseTimer() {
+            if (!isMobileDevice()) return;
+            
+            clearTimeout(autoCollapseTimer);
+            notchSection.classList.remove('auto-collapsed');
+            startAutoCollapseTimer();
+        }
+
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(handleScroll);
+                ticking = true;
+            }
+        }
+
+        function finishTick() {
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            requestTick();
+            setTimeout(finishTick, 16);
+            
+            if (isMobileDevice()) {
+                resetAutoCollapseTimer();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            handleScroll();
+            if (isMobileDevice()) {
+                resetAutoCollapseTimer();
+            }
+        });
+
+        if (isMobileDevice()) {
+            notchSection.addEventListener('touchstart', resetAutoCollapseTimer, { passive: true });
+            notchSection.addEventListener('touchmove', resetAutoCollapseTimer, { passive: true });
+        }
+
+        handleScroll();
+        if (isMobileDevice()) {
+            startAutoCollapseTimer();
+        }
+
+        document.addEventListener('touchstart', function() {}, { passive: true });
+        document.addEventListener('touchmove', function() {}, { passive: true });
 </script>
 </body>
 </html>
